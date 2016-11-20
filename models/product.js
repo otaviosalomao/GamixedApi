@@ -5,42 +5,30 @@ var dataTypes = require("sequelize");
 var crypto = require('crypto');
 
 
-var User = sequelize.define('users', {
-    username: dataTypes.STRING,
-    password: dataTypes.STRING
+var Product = sequelize.define('products', {
+	name: dataTypes.STRING,
+    	description: dataTypes.STRING,
+	value: dataTypes.DECIMAL,
+	imageName: dataTypes.STRING
   }, {
     instanceMethods: {
-      retrieveAll: function(onSuccess, onError) {
-			User.findAll({}, {raw: true}).success(onSuccess).error(onError);
+      	retrieveAll: function(onSuccess, onError) {
+		Product.findAll({}, {raw: true}).success(onSuccess).error(onError);
 	  },
-      retrieveById: function(user_id, onSuccess, onError) {
-			User.find({where: {id: user_id}}, {raw: true}).success(onSuccess).error(onError);
+      	retrieveById: function(product_id, onSuccess, onError) {
+		Product.find({where: {id: product_id}}, {raw: true}).success(onSuccess).error(onError);
 	  },
-      add: function(onSuccess, onError) {
-			var username = this.username;
-			var password = this.password;
-
-			var shasum = crypto.createHash('sha1');
-			shasum.update(password);
-			password = shasum.digest('hex');
-
-			User.build({ username: username, password: password }).save().success(onSuccess).error(onError);
+      	add: function(onSuccess, onError) {
+		var name = this.name;
+		Product.build({ name: name, description: this.description, value: this.value, imageName: this.imageName }).save().success(onSuccess).error(onError);
 	   },
-	  updateById: function(user_id, onSuccess, onError) {
-			var id = user_id;
-			var username = this.username;
-			var password = this.password;
-
-			var shasum = crypto.createHash('sha1');
-			shasum.update(password);
-			password = shasum.digest('hex');
-
-			User.update({ username: username,password: password},{where: {id: id} }).success(onSuccess).error(onError);
+  	updateById: function(product_id, onSuccess, onError) {
+		Product.update({ name: this.name, description: this.description, value: this.value, imageName: this.imageName},{where: {id: product_id} }).success(onSuccess).error(onError);
 	   },
-      removeById: function(user_id, onSuccess, onError) {
-			User.destroy({where: {id: user_id}}).success(onSuccess).error(onError);
+      removeById: function(product_id, onSuccess, onError) {
+		Product.destroy({where: {id: product_id}}).success(onSuccess).error(onError);
 	  }
     }
   });
 
-  module.exports = User;
+  module.exports = Product;

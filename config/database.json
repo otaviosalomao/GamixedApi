@@ -2,7 +2,7 @@
   "dev": {
     "driver": "mysql",
     "user": "root",
-    "database": "tutorial",
+    "database": "gamixed",
 	"password": "123456"
   },
  

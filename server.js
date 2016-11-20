@@ -1,10 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var appConfig = require('./config/appConfig');
+var cors = require('cors');
 var app = express();
-app.use(bodyParser());
 var router = express.Router();
+app.use(bodyParser());
+require('./controllers/productController')(router);
 require('./controllers/userController')(router);
+app.use(cors());
 app.use('/api', router);
 app.listen(appConfig.port);
 console.log("Server was started.");
