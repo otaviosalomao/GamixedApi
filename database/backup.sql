@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `description` varchar(200)utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `value` decimal(18,2) COLLATE utf8_unicode_ci NOT NULL,
   `imageName` varchar(200) COLLATE utf8_unicode_ci NOT NULL,  
