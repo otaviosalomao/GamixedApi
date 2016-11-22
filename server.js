@@ -7,6 +7,8 @@ var router = express.Router();
 app.use(bodyParser());
 require('./controllers/productController')(router);
 require('./controllers/userController')(router);
+require('./controllers/loginController.js')(router);
+require('./controllers/accessController.js')(router);
 app.use(cors());
 app.use('/api', router);
 app.listen(appConfig.port);

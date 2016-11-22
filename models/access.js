@@ -2,27 +2,30 @@ var env = require('../config/databaseConfig');
 var config = require('../config/database.json')[env];
 var sequelize = require('../config/sequelizeConfig');
 var dataTypes = require("sequelize");
-var TokenGenerator = require("token-generator");
+var tokenGenerator = require("token-generator");
+var datetime = require('node-datetime');
 var crypto = require('crypto');
 
 
 var Access = sequelize.define('accesses', {
-	user_id: dataTypes.INTEGER,
-    	first_access: dataTypes.DATE,
-	token: dataTypes.STRINGL,
-	last_access: dataTypes.DATE
+	  user_id: dataTypes.INTEGER,
+    first: dataTypes.DATE,
+	  token: dataTypes.STRING,
+  	last: dataTypes.DATE
   }, {
     instanceMethods: {
-      	retrieveByToken: function(token, onSuccess, onError) {
-		Access.find({where: {token: token}}, {raw: true}).success(onSuccess).error(onError);
+      retrieveByTokenUserId: function(token,user_id, onSuccess, onError) {
+      		Access.find({where: {token: token, user_id: user_id}}, {raw: true}).success(onSuccess).error(onError);
 	  },
-      	add: function(onSuccess, onError) {
-		var token = TokenGenerator.generate();
-		Product.build({ user_id: this.user_id, first: this.first, last: this.last, token: this.token }).save().success(onSuccess).error(onError);
+     	add: function(onSuccess, onError) {
+      		var token = tokenGenerator.generate();
+          var first = datetime.create().format('m/d/Y H:M:S');
+          var last = datetime.create().format('m/d/Y H:M:S');
+      		Access.build({ user_id: this.user_id, first: first, last: last, token: token }).save().success(onSuccess).error(onError);
 	   },
-  	updateByToken: function(token, onSuccess, onError) {
-		var last = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-		Product.update({ last: last},{where: {token: token} }).success(onSuccess).error(onError);
+      updateByToken: function(user_id, token, onSuccess, onError) {
+		      var last = datetime.create().format('m/d/Y H;M:S');
+      		Access.update({ last: last},{where: {user_id: user_id, token: token} }).success(onSuccess).error(onError);
 	   }
     }
   });
