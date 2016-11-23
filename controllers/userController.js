@@ -4,10 +4,11 @@ module.exports = function(router){
     // create a user (accessed at POST http://localhost:8080/api/users)
     .post(function(req, res) {
 
-        var username = req.body.username; //bodyParser does the magic
+        var name = req.body.name; //bodyParser does the magic
         var password = req.body.password;
+        var email = req.body.email;
 
-        var user = User.build({ username: username, password: password });
+        var user = User.build({ name: name, password: password, email: email });
 
         user.add(function(success){
             res.json({ message: 'User created!' });
@@ -23,16 +24,14 @@ module.exports = function(router){
 
         user.retrieveAll(function(users) {
             if (users) {
-            res.json(users);
+                res.json(users);
             } else {
-            res.send(401, "User not found");
+                res.send(401, "User not found");
             }
         }, function(error) {
             res.send("User not found");
         });
-    });
-
-
+    }); 
     // on routes that end in /users/:user_id
     // ----------------------------------------------------
     router.route('/users/:user_id')
@@ -41,8 +40,9 @@ module.exports = function(router){
     .put(function(req, res) {
         var user = User.build();
 
-        user.username = req.body.username;
+        user.name = req.body.name;
         user.password = req.body.password;
+        user.email = req.body.email;
 
         user.updateById(req.params.user_id, function(success) {
             console.log(success);

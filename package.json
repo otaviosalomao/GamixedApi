@@ -9,6 +9,7 @@
     "mysql": "~2.5.0",
     "node-datetime": "^1.0.0",
     "nodemon": "^1.11.0",
+    "rand-token": "^0.2.1",
     "sequelize": "~2.0.0",
     "token-generator": "^1.0.0"
   }
