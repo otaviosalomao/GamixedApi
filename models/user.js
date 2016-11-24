@@ -32,17 +32,16 @@ var User = sequelize.define('users', {
 		User.build({ name: name, password: password, email: email }).save().success(onSuccess).error(onError);
    	},
     updateById: function(user_id, onSuccess, onError) {
-			var id = user_id;
-			var name = this.name;
-			var password = this.password;
-			var email = this.email;
-			shasum.update(password);
-			password = shasum.digest('hex');
-
-			User.update({ name: name,password: password, email: email},{where: {id: id} }).success(onSuccess).error(onError);
-	   },
+		var id = user_id;
+		var name = this.name;
+		var password = this.password;
+		var email = this.email;
+		shasum.update(password);
+		password = shasum.digest('hex');
+		User.update({ name: name,password: password, email: email},{where: {id: id} }).success(onSuccess).error(onError);
+   	},
     removeById: function(user_id, onSuccess, onError) {
-			User.destroy({where: {id: user_id}}).success(onSuccess).error(onError);
+		User.destroy({where: {id: user_id}}).success(onSuccess).error(onError);
 	  }
     }
   });

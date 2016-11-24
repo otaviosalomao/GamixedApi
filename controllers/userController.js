@@ -1,13 +1,11 @@
 module.exports = function(router){
     var User = require('../models/user');
     router.route('/users')
-    // create a user (accessed at POST http://localhost:8080/api/users)
+    
     .post(function(req, res) {
-
-        var name = req.body.name; //bodyParser does the magic
+        var name = req.body.name;
         var password = req.body.password;
         var email = req.body.email;
-
         var user = User.build({ name: name, password: password, email: email });
 
         user.add(function(success){
@@ -17,8 +15,7 @@ module.exports = function(router){
             res.send(err);
         });
     })
-
-    // get all the users (accessed at GET http://localhost:8080/api/users)
+    
     .get(function(req, res) {
         var user = User.build();
 
@@ -31,55 +28,48 @@ module.exports = function(router){
         }, function(error) {
             res.send("User not found");
         });
-    }); 
-    // on routes that end in /users/:user_id
-    // ----------------------------------------------------
-    router.route('/users/:user_id')
-
-    // update a user (accessed at PUT http://localhost:8080/api/users/:user_id)
+    });     
+    
+    router.route('/users/:user_id')    
     .put(function(req, res) {
         var user = User.build();
-
         user.name = req.body.name;
         user.password = req.body.password;
         user.email = req.body.email;
-
         user.updateById(req.params.user_id, function(success) {
             console.log(success);
             if (success) {
                 res.json({ message: 'User updated!' });
             } else {
-            res.send(401, "User not found");
+                res.send(401, "User not found");
             }
         }, function(error) {
             res.send("User not found");
         });
     })
-
-    // get a user by id(accessed at GET http://localhost:8080/api/users/:user_id)
+    
     .get(function(req, res) {
         var user = User.build();
 
         user.retrieveById(req.params.user_id, function(users) {
             if (users) {
-            res.json(users);
+                res.json(users);
             } else {
-            res.send(401, "User not found");
+                res.send(401, "User not found");
             }
         }, function(error) {
             res.send("User not found");
         });
     })
-
-    // delete a user by id (accessed at DELETE http://localhost:8080/api/users/:user_id)
+    
     .delete(function(req, res) {
         var user = User.build();
 
         user.removeById(req.params.user_id, function(users) {
             if (users) {
-            res.json({ message: 'User removed!' });
+                res.json({ message: 'User removed!' });
             } else {
-            res.send(401, "User not found");
+                res.send(401, "User not found");
             }
         }, function(error) {
             res.send("User not found");

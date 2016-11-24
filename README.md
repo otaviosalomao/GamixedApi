@@ -1,2 +1,4 @@
 # GamixedApi
-Api gamixed
+Api gamixed - NodeJs
+
+ORM - sequelize
