@@ -3,7 +3,7 @@
     "driver": "mysql",
     "user": "root",
     "database": "gamixed",
-	"password": "root"
+	"password": "123456"
   },
  
   "production": {

@@ -3,6 +3,7 @@ module.exports = function(router){
 
     router.route('/login')
     .post(function(req, res) {
+        console.log(req.body);
         var email = req.body.email;
         var password = req.body.password;                
         User.build().retrieveByEmailPassword(email, password, function(users){            
@@ -18,6 +19,8 @@ module.exports = function(router){
                         });   
                     }                                 
                 });        		
+            }else {
+                res.send(400, "Usuário não encontrado.");
             }
         },
   	    function(err) {
