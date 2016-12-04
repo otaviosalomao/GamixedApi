@@ -2,10 +2,12 @@
   "name": "node-api",
   "main": "server.js",
   "dependencies": {
+    "basic-auth": "^1.1.0",
     "body-parser": "~1.0.1",
     "cors": "^2.8.1",
     "crypto": "~0.0.3",
     "express": "~4.0.0",
+    "jsonwebtoken": "^7.1.9",
     "mysql": "~2.5.0",
     "node-datetime": "^1.0.0",
     "nodemon": "^1.11.0",
