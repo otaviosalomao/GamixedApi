@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `accesses`(
   `user_id` int(10) NOT NULL,
   `first` datetime NULL,
   `last` datetime NULL,
-  `token` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
     PRIMARY KEY (`id`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 

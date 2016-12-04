@@ -8,6 +8,7 @@
     "crypto": "~0.0.3",
     "express": "~4.0.0",
     "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.7.1",
     "mysql": "~2.5.0",
     "node-datetime": "^1.0.0",
     "nodemon": "^1.11.0",

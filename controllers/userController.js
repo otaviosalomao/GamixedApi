@@ -1,8 +1,9 @@
+var auth = require("../auth");
 module.exports = function(router){
     var User = require('../models/user');
     router.route('/users')
     
-    .post(function(req, res) {
+    .post(auth, function(req, res) {
         var name = req.body.name;
         var password = req.body.password;
         var email = req.body.email;
@@ -16,7 +17,7 @@ module.exports = function(router){
         });
     })
     
-    .get(function(req, res) {
+    .get(auth, function(req, res) {
         var user = User.build();
 
         user.retrieveAll(function(users) {
@@ -31,7 +32,7 @@ module.exports = function(router){
     });     
     
     router.route('/users/:user_id')    
-    .put(function(req, res) {
+    .put(auth, function(req, res) {
         var user = User.build();
         user.name = req.body.name;
         user.password = req.body.password;
@@ -48,7 +49,7 @@ module.exports = function(router){
         });
     })
     
-    .get(function(req, res) {
+    .get(auth, function(req, res) {
         var user = User.build();
 
         user.retrieveById(req.params.user_id, function(users) {
@@ -62,7 +63,7 @@ module.exports = function(router){
         });
     })
     
-    .delete(function(req, res) {
+    .delete(auth, function(req, res) {
         var user = User.build();
 
         user.removeById(req.params.user_id, function(users) {

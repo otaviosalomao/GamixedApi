@@ -2,8 +2,7 @@ var env = require('../config/databaseConfig');
 var config = require('../config/database.json')[env];
 var sequelize = require('../config/sequelizeConfig');
 var dataTypes = require("sequelize");
-var randToken = require("rand-token");
-var crypto = require('crypto');
+var helper = require("../config/helper");
 var appConfig = require('../config/appConfig');
 
 var Access = sequelize.define('accesses', {
@@ -20,8 +19,8 @@ var Access = sequelize.define('accesses', {
         var limitSession = new Date(new Date().getTime() - appConfig.sessionTime*60000);
         Access.find({where: ['user_id = ? and last > ?', user_id, limitSession]}, {raw: true}).success(onSuccess).error(onError);
       },
-     	add: function(onSuccess, onError) {          
-      	var token = randToken.generate(16);                 
+     	add: function(req, onSuccess, onError) {
+        var token = helper.GenerateToken(req);                 
       	Access.build({ user_id: this.user_id, first: new Date(), last: new Date(), token: token }).save().success(onSuccess).error(onError);
       },
       updateByToken: function(user_id, token, onSuccess, onError) {		      

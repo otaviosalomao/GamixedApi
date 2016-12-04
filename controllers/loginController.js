@@ -14,7 +14,7 @@ module.exports = function(router){
                         res.json(access);
                     }
                     else {
-                        Access.build({user_id: users.id}).add(function(access){                                        
+                        Access.build({user_id: users.id}).add(req, function(access){                                        
                             res.json(access);
                         });   
                     }                                 
